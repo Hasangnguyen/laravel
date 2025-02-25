@@ -37,3 +37,6 @@ Route::post('/signup', [signupController::class, 'displayInfor']);
 use App\Http\Controllers\ApiController;
 
 Route::get('/FormApi', [ApiController::class, 'getData']);
+//
+use App\Http\Controllers\ProductController;		
+Route::resource('products', ProductController::class);		
