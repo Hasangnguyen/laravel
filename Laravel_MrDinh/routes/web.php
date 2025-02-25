@@ -1,5 +1,6 @@
 <?php
 
+// use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SumController;
 
@@ -31,3 +32,8 @@ use App\Http\Controllers\signupController;
 
 Route::get('/signup', [signupController::class, 'index']);
 Route::post('/signup', [signupController::class, 'displayInfor']);
+
+//
+use App\Http\Controllers\ApiController;
+
+Route::get('/FormApi', [ApiController::class, 'getData']);

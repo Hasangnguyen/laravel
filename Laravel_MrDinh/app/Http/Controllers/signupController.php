@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
-use App\Http\Requests\signupRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\SignupRequest;
 
-class signupController extends Controller
+class SignupController extends Controller
 {
     public function index()
     {
-        return view('signup'); // Gọi giao diện form đăng ký
+        // Lấy dữ liệu từ session (nếu có)
+        $userSession = session('userSession', []);
+        return view('signup')->with('userSession', $userSession);
     }
 
-    public function displayInfor(signupRequest $request)
+    public function displayInfor(SignupRequest $request)
     {
+        // Lấy dữ liệu hiện có từ session (nếu có)
+        $userSession = session('userSession', []);
+
+        // Tạo dữ liệu mới từ form
         $user = [
             'name' => $request->input("name"),
             'age' => $request->input("age"),
@@ -23,6 +30,18 @@ class signupController extends Controller
             'address' => $request->input("address"),
         ];
 
-        return view('signup')->with('user', $user);
+        // Thêm người dùng mới vào session
+        $userSession[] = $user;
+        session(['userSession' => $userSession]);
+
+        // Trả về view kèm session
+        return view('signup')->with('userSession', $userSession);
+    }
+
+    public function clearSession()
+    {
+        // Xóa toàn bộ dữ liệu trong session
+        Session::forget('userSession');
+        return redirect()->route('signup'); // Điều hướng về form đăng ký
     }
 }

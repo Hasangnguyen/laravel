@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>Signup Form</title>
-    <link rel="stylesheet" href="../assets\css/form.css">
-    <style>
-    </style>
+    <link rel="stylesheet" href="../assets/css/form.css">
 </head>
 <body>
     <form action="" method="post">
@@ -33,21 +31,25 @@
             <label>Address</label>
             <input type="text" class="form-control" name="address">
         </div>
-        
+
         @include('block.error')
-        
+
         <button type="submit" class="btn btn-primary" style="width: 200px;">OK</button>
-        <div class="display-infor"></div>
     </form>
 
-    @if(isset($user))
-        <h2>Thông tin người dùng:</h2>
-        <p>Name: {{ $user['name'] }}</p>
-        <p>Age: {{ $user['age'] }}</p>
-        <p>Date: {{ $user['date'] }}</p>
-        <p>Phone: {{ $user['phone'] }}</p>
-        <p>Website: {{ $user['web'] }}</p>
-        <p>Address: {{ $user['address'] }}</p>
-    @endif
+    <div class="display-infor">
+        @if(session()->has('userSession'))
+            <h2>Thông tin người dùng:</h2>
+            @foreach(session('userSession') as $user)
+                <p>Name: {{ $user['name'] }}</p>
+                <p>Age: {{ $user['age'] }}</p>
+                <p>Date: {{ $user['date'] }}</p>
+                <p>Phone: {{ $user['phone'] }}</p>
+                <p>Website: {{ $user['web'] }}</p>
+                <p>Address: {{ $user['address'] }}</p>
+                <hr>
+            @endforeach
+        @endif
+    </div>
 </body>
 </html>
