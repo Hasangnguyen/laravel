@@ -39,4 +39,8 @@ use App\Http\Controllers\ApiController;
 Route::get('/FormApi', [ApiController::class, 'getData']);
 //
 use App\Http\Controllers\ProductController;		
-Route::resource('products', ProductController::class);		
+Route::resource('products', ProductController::class);
+
+//
+use App\Http\Controllers\PageController;
+Route::get('index', [PageController::class, 'index'])->name('trang-chu');
