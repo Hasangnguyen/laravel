@@ -4,9 +4,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SumController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::post('/sumAB',[SumController::class,"sumAB"]);
 
 Route::group(['prefix' => 'tutorial'], function() {
@@ -44,3 +44,26 @@ Route::resource('products', ProductController::class);
 //
 use App\Http\Controllers\PageController;
 Route::get('index', [PageController::class, 'index'])->name('trang-chu');
+//
+use App\Http\Controllers\NewController;
+Route::get('hehe', [NewController::class, 'index']);
+//
+// Thực hiện tạo table trong Database
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
+Route::get('/create-products-table', function () {
+    Schema::create('products', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->text('description')->nullable();
+        $table->decimal('price', 10, 2);
+        $table->integer('stock')->default(0);
+        $table->timestamps();
+    });
+
+    return "Bảng products đã được tạo thành công!";
+});
+
+use App\Http\Controllers\DatabaseController;
+Route::get('/database', [DatabaseController::class, 'createTables']);
